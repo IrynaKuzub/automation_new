@@ -11,7 +11,7 @@ import ua.kiev.prog.automation.framework.base.Session;
 
 public class SessionTestNGTest extends Assert
 {
-    private String _url = "https://www.google.com.ua/";
+    private String _url = "https://prog.kiev.ua/";
 
     @BeforeTest
     public void setup ()
@@ -27,8 +27,8 @@ public class SessionTestNGTest extends Assert
         mainPage.mainMenu.getHelpPage().mainMenu.getMainPage();
         LoginPage loginPage = mainPage.getLoginPage();
         MainLoggedInPage mainPageLogged = loginPage.login("qaAutomationAccount","135798642");
-        TopicListPage topics = mainPageLogged.categoryList.getCategory("Программирование").openBoard("Java SE");
-        topics.openTopicByName("Java Start Online ДЗ romanvoznyy");
+      //  TopicListPage topics = mainPageLogged.categoryList.getCategory("Программирование").openBoard("Java SE");
+      //  topics.openTopicByName("Java Start Online ДЗ romanvoznyy");
 
     }
 

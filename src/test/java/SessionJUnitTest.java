@@ -10,7 +10,7 @@ import ua.kiev.prog.automation.framework.base.Session;
 
 public class SessionJUnitTest extends Assert
 {
-    private String _url = "https://www.google.com.ua/";
+    private String _url = "https://prog.kiev.ua/";
 
     @Before
     public void setup ()
