@@ -23,7 +23,6 @@ public class App
             String realEmail = profilePage.getEmail();
             //TopicListPage topics = mainPageLogged.categoryList.getCategory("Программирование").openBoard("Java SE");
             //topics.openTopicByName("Java Start Online ДЗ romanvoznyy");
-            //TopicPage t;
 
 
 
