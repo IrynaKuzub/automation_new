@@ -15,9 +15,6 @@ import java.util.List;
 
 public class TopicMessage extends Widget
 {
-    String author;
-    String message;
-
     public TopicMessage(Locator locator) {
        super(locator);
     }
@@ -25,23 +22,11 @@ public class TopicMessage extends Widget
     public String getauthor(int i)
     {
         GUILink elem = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i+ "]//div[@class='poster']//h4//a"));
-        author= elem.getText();
-        return author;
- /*       List<WebElement> list = this.driver().findElements(this.locator().getWDLocator());
-        System.out.println(list.size());
-
-      for (int i = 0; i <= list.size()-1; i++) {
-            WebElement element = list.get(i);
-            System.out.println(element.getText());
-      }*/
-     // List<WebElement> list = new List<WebElement>{};
-        //return new GUIElement(this.locator().createChild(".//div[@class='poster']//h4//a"));
-
+        return elem.getText();
     }
     public String getmessage(int i) {
         GUILink elem2 = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i + "]//div[@class='inner']"));
-        message = elem2.getText();
-        return message;
+        return elem2.getText();
 
     }
 

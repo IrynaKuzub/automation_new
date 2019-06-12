@@ -21,8 +21,6 @@ public class TopicPage extends PageObject
     final private List<TopicMessage> list = new ArrayList<>();
     public TopicPage () {
         TopicMessage post = new TopicMessage(readyLocator());
-        //WebElement category = this.driver().findElement(readyLocator().getWDLocator());
-        //List<WebElement> elements = this._driver.findElements(By.xpath("./div[@class='poster']//h4//a"));
         GUICounter counter = new GUICounter(this.readyLocator().createChild("./div[@class='poster']//h4//a"));
 
         for (int i = 1; i <= counter.count(); i++) {
