@@ -21,12 +21,12 @@ public class TopicMessage extends Widget
 
     public String getauthor(int i)
     {
-        GUILink elem = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i+ "]//div[@class='poster']//h4//a"));
-        return elem.getText();
+        GUILink author = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i+ "]//div[@class='poster']//h4//a"));
+        return author.getText();
     }
     public String getmessage(int i) {
-        GUILink elem2 = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i + "]//div[@class='inner']"));
-        return elem2.getText();
+        GUILink message = new GUILink(Locator.create("//form[@id='quickModForm']//div[" + i + "]//div[@class='inner']"));
+        return message.getText();
 
     }
 

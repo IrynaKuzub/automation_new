@@ -25,9 +25,20 @@ public class SessionTestNGTest extends Assert
         MainPage mainPage = new MainPage();
         mainPage.confirmPage();
         mainPage.mainMenu.getHelpPage().mainMenu.getMainPage();
+
+        assertTrue(mainPage.mainMenu.regLink.isExist(0), "Registration link is exist after login");
+
+
         LoginPage loginPage = mainPage.getLoginPage();
         MainLoggedInPage mainPageLogged = loginPage.login("qaAutomationAccount","135798642");
-      //  TopicListPage topics = mainPageLogged.categoryList.getCategory("Программирование").openBoard("Java SE");
+        assertFalse(mainPageLogged.mainMenu.loginLink.isExist(0), "Login link is exist after login");
+        assertTrue(mainPageLogged.mainMenu.logout.isExist(0), "Logout link is not exist after login");
+
+        /*mainPageLogged.mainMenu.profile.moveCursorToElement();
+        try {
+            Thread.sleep(10000);
+        } catch (Throwable e) {}*/
+        //  TopicListPage topics = mainPageLogged.categoryList.getCategory("Программирование").openBoard("Java SE");
       //  topics.openTopicByName("Java Start Online ДЗ romanvoznyy");
 
     }

@@ -1,10 +1,12 @@
 package ua.kiev.prog.automation.framework.base;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Instant;
 import java.util.List;
 
 public class Widget
@@ -25,11 +27,15 @@ public class Widget
     {
         return Session.get().driver();
     }
-
     final public WebElement element ()
     {
+        return this.element(Timeouts.DEF_TIMEOUT_WIDGET_WAIT);
+    }
+
+    final public WebElement element (int timeoutSeconds)
+    {
         final SearchContext context = getLocatorContext(this._locator);
-        WebDriverWait wait = new WebDriverWait(Session.get().driver(), Timeouts.DEF_TIMEOUT_WIDGET_WAIT);
+        WebDriverWait wait = new WebDriverWait(Session.get().driver(), timeoutSeconds);
         wait.until(d -> {
             List<WebElement> list = context.findElements(this._locator.getWDLocator());
             return list.size() != 0;
@@ -65,5 +71,65 @@ public class Widget
         // trim() - обрезает у троки пробелы по краям
         return this.element().getText().trim();
     }
+    final protected WebElement scrollToElement()
+    {
+        WebElement element = this.element();
+        this.executor().executeScript("arguments[0].scrollIntoView(false);", element);
+        return element;
+    }
+
+
+    final public void moveCursorToElement()
+    {
+        this.scrollToElement();
+        this.dispatchMouseEvent("mouseenter");
+        this.dispatchMouseEvent("mouseover");
+    }
+
+    final public void moveCursorOut()
+    {
+        this.scrollToElement();
+        this.dispatchMouseEvent("mouseleave");
+        this.dispatchMouseEvent("mouseout");
+    }
+    private JavascriptExecutor _executor;
+
+    final protected JavascriptExecutor executor ()
+    {
+        if (this._executor == null)
+            this._executor = (JavascriptExecutor) this.driver();
+        return this._executor;
+    }
+
+    private void dispatchMouseEvent(String eventName)
+    {
+        this.executor().executeScript(
+                "var e = document.createEvent('Events');" +
+                        "e.initEvent('"+ eventName + "',true,false);" +
+                        "arguments[0].dispatchEvent(e);",
+                this.element()
+        );
+    }
+    final public  boolean isExist()
+    {
+        return this.isExist(Timeouts.DEF_TIMEOUT_WIDGET_WAIT);
+    }
+    final public boolean isExist (int timeoutSeconds)
+    {
+        boolean exists = false;
+        long endTime = Instant.now().getEpochSecond() + timeoutSeconds;
+        while (true) {
+            try {
+                this.element(0);
+                exists = true;
+            } catch (Throwable e) { /* Ignore */ }
+            if (exists || endTime <= Instant.now().getEpochSecond())
+                break;
+            try { Thread.sleep(500); } catch (Throwable e) { /* Ignore */ }
+        }
+        return exists;
+    }
+
+
 
 }
